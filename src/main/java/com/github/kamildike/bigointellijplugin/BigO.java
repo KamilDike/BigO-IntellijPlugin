@@ -1,5 +1,8 @@
 package com.github.kamildike.bigointellijplugin;
 
+import com.github.kamildike.bigointellijplugin.model.Notation;
+import com.intellij.lang.PsiBuilder;
+import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Caret;
@@ -8,8 +11,15 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
 import com.intellij.openapi.editor.actionSystem.EditorActionManager;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.util.TextRange;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiManager;
+import com.intellij.util.ui.UI;
+import org.apache.batik.dom.events.NodeEventTarget;
 import org.jetbrains.annotations.NotNull;
+
+import javax.swing.*;
 
 class BigOn extends AnAction  {
 
@@ -27,38 +37,44 @@ class BigOn extends AnAction  {
         };
     }
 
+
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
 
+        Notation notation = null;
         final Editor editor = e.getRequiredData(CommonDataKeys.EDITOR);
+        final Project project = editor.getProject();
+        final Document document = editor.getDocument();
+
         final EditorActionManager actionManager = EditorActionManager.getInstance();
 
         final EditorActionHandler actionHandler = actionManager.getActionHandler(IdeActions.ACTION_EDITOR_MOVE_CARET_LEFT);
         actionHandler.execute(editor, editor.getCaretModel().getPrimaryCaret(), e.getDataContext());
 
 
-        final Document document = editor.getDocument();
-        final Project project = editor.getProject();
+        PsiElement method = e.getData(LangDataKeys.PSI_ELEMENT);
+        PsiElement parent = e.getData(LangDataKeys.PSI_ELEMENT).getContext();
 
-        Caret primaryCaret = editor.getCaretModel().getPrimaryCaret();
-        int start = primaryCaret.getLeadSelectionOffset();
-        int end = primaryCaret.getSelectionEnd();
-        int startV = primaryCaret.getVisualLineStart();
-        int endV = primaryCaret.getVisualLineEnd();
+       // if (PsiManager.getInstance(project).areElementsEquivalent(parent,))
 
+        if(method.getText().equals("public int indexOf(java.lang.Object o) { /* compiled code */ }")){
+            if(parent.getText().contains("public class ArrayList <E> extends java.util.AbstractList<E> implements java.util.List<E>, java.util.RandomAccess, java.lang.Cloneable, java.io.Serializable {\n" +
+                    "    private static final long serialVersionUID = 8683452581122892189L;\n" +
+                    "    private static final int DEFAULT_CAPACITY = 10;\n"
+            )){
+                notation = Notation.ON;
+            }
 
-        TextRange textRange = new TextRange(start,end);
-        TextRange textRange2 = new TextRange(startV,endV);
-        String text = document.getText(textRange);
-        String text1 = document.getText(textRange2);
-
-
-        String text3 = e.getData(LangDataKeys.PSI_ELEMENT).getText();
-        String text4 = e.getData(LangDataKeys.PSI_ELEMENT).getContext().getText();
+        }
 
 
+        if(notation!=null) {
+            JBPopupFactory.getInstance().createMessage(Notation.getLabel(notation)).showInBestPositionFor(editor);
 
-        Runnable runnable = () -> document.insertString(0, "editor_basics\n");
-        WriteCommandAction.runWriteCommandAction(project, runnable);
+        Notation finalNotation = notation;
+        Runnable runnable = () -> document.insertString(editor.getCaretModel().getPrimaryCaret().getVisualLineStart()
+                    , "// has time complexity: " + Notation.getLabel(finalNotation)+"\n");
+            WriteCommandAction.runWriteCommandAction(project, runnable);
+        }
     }
 }
