@@ -12,8 +12,17 @@
         <projectService serviceImplementation="com.github.kamildike.bigointellijplugin.services.MyProjectService"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.kamildike.bigointellijplugin.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+
+
+    <actions>
+        <action id="PopUpBigO" text="BigO"  class="com.github.kamildike.bigointellijplugin.BigOn">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="alt q"/>
+        </action>
+        <action id="EditorBigO" text="BigO"  class="com.github.kamildike.bigointellijplugin.BigOn">
+            <add-to-group group-id="EditorActions" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="alt q"/>
+        </action>
+
+    </actions>
 </idea-plugin>
