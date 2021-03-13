@@ -23,21 +23,22 @@ import org.apache.batik.dom.events.NodeEventTarget;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import java.util.Objects;
 
 class BigOn extends AnAction {
 
 
     @Override
     public void update(AnActionEvent e) {
-
-        PsiElement method = e.getData(LangDataKeys.PSI_ELEMENT);
-        PsiElement parent = e.getData(LangDataKeys.PSI_ELEMENT).getContext();
-
+        try{
+        PsiElement parent = Objects.requireNonNull(e.getData(LangDataKeys.PSI_ELEMENT)).getContext();
         if (parent != null) {
             e.getPresentation().setEnabledAndVisible(
                     ClassComparator.getInstance().isRecognizedClass(parent));
         }
-
+        }catch (NullPointerException ignored){
+            e.getPresentation().setEnabledAndVisible(false);
+        }
     }
 
 
