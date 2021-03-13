@@ -17,6 +17,8 @@ import com.intellij.psi.PsiElement;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 
 class BigOn extends AnAction {
 
@@ -25,10 +27,8 @@ class BigOn extends AnAction {
     public void update(AnActionEvent e) {
         try {
             PsiElement method = e.getData(LangDataKeys.PSI_ELEMENT);
-            //assert method != null;
-            PsiElement parent = method.getContext();
-            //assert parent != null;
-            if (ClassComparator.getInstance().isRecognizedClass(parent)) {
+            PsiElement parent = Objects.requireNonNull(method).getContext();
+            if (ClassComparator.getInstance().isRecognizedClass(Objects.requireNonNull(parent))) {
                 e.getPresentation().setEnabledAndVisible(
                         MethodComparator.getInstance().
                                 isRecognizedMethod(method));
