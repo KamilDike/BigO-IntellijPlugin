@@ -1,42 +1,41 @@
 package com.github.kamildike.bigointellijplugin;
 
 import com.github.kamildike.bigointellijplugin.model.ClassComparator;
+import com.github.kamildike.bigointellijplugin.model.MethodComparator;
 import com.github.kamildike.bigointellijplugin.model.Notation;
-import com.intellij.lang.PsiBuilder;
-import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.editor.Caret;
+
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
 import com.intellij.openapi.editor.actionSystem.EditorActionManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
-import com.intellij.openapi.util.TextRange;
+
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.PsiRecursiveElementWalkingVisitor;
-import com.intellij.util.ui.UI;
-import org.apache.batik.dom.events.NodeEventTarget;
+
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import java.util.Objects;
 
 class BigOn extends AnAction {
 
 
     @Override
     public void update(AnActionEvent e) {
-        try{
-        PsiElement parent = Objects.requireNonNull(e.getData(LangDataKeys.PSI_ELEMENT)).getContext();
-        if (parent != null) {
-            e.getPresentation().setEnabledAndVisible(
-                    ClassComparator.getInstance().isRecognizedClass(parent));
-        }
-        }catch (NullPointerException ignored){
+        try {
+            PsiElement method = e.getData(LangDataKeys.PSI_ELEMENT);
+            //assert method != null;
+            PsiElement parent = method.getContext();
+            //assert parent != null;
+            if (ClassComparator.getInstance().isRecognizedClass(parent)) {
+                e.getPresentation().setEnabledAndVisible(
+                        MethodComparator.getInstance().
+                                isRecognizedMethod(method));
+            }else{
+                e.getPresentation().setEnabledAndVisible(false);
+            }
+        } catch (NullPointerException ignored) {
             e.getPresentation().setEnabledAndVisible(false);
         }
     }
