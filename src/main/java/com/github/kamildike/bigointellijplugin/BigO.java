@@ -43,7 +43,16 @@ class BigOn extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
+            // Do podpunktu 3.
+            //PsiElement method = e.getData(LangDataKeys.PSI_ELEMENT);
+            //PsiElement parent = Objects.requireNonNull(method).getContext();
+            // elementy method i parent są notNull
+            // parent należy do listy klas okreslonych w klasie ClassComparator
+            // method należy do listy method określonych w klasie MethodComparator
+            // method.getText() <- kod metody
+            // parent.getText() <- kod clasy
 
+        
         Notation notation = null;
         final Editor editor = e.getRequiredData(CommonDataKeys.EDITOR);
         final Project project = editor.getProject();
