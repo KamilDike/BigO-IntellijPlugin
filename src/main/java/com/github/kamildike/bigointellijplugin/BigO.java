@@ -25,6 +25,7 @@ class BigOn extends AnAction {
 
     @Override
     public void update(AnActionEvent e) {
+
         try {
             PsiElement method = e.getData(LangDataKeys.PSI_ELEMENT);
             PsiElement parent = Objects.requireNonNull(method).getContext();
@@ -67,18 +68,7 @@ class BigOn extends AnAction {
         PsiElement method = e.getData(LangDataKeys.PSI_ELEMENT);
         PsiElement parent = e.getData(LangDataKeys.PSI_ELEMENT).getContext();
 
-
-        if (method.getText().equals("public int indexOf(java.lang.Object o) { /* compiled code */ }")) {
-            if (parent.getText().contains("public class ArrayList <E> extends java.util.AbstractList<E> implements java.util.List<E>, java.util.RandomAccess, java.lang.Cloneable, java.io.Serializable {\n" +
-                    "    private static final long serialVersionUID = 8683452581122892189L;\n" +
-                    "    private static final int DEFAULT_CAPACITY = 10;\n"
-            )) {
-                notation = Notation.ON;
-            }
-
-        }
-
-
+        notation = Notation.ON;
 
             JBPopupFactory.getInstance().
                     createMessage(Notation.getLabel(notation)).showInBestPositionFor(editor);
