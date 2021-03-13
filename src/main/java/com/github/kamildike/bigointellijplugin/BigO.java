@@ -79,7 +79,7 @@ class BigOn extends AnAction {
         }
 
 
-        if (notation != null) {
+
             JBPopupFactory.getInstance().
                     createMessage(Notation.getLabel(notation)).showInBestPositionFor(editor);
 
@@ -87,6 +87,6 @@ class BigOn extends AnAction {
             Runnable runnable = () -> document.insertString(editor.getCaretModel().getPrimaryCaret().getVisualLineStart()
                     , "// has time complexity: " + Notation.getLabel(finalNotation) + "\n");
             WriteCommandAction.runWriteCommandAction(project, runnable);
-        }
+
     }
 }
