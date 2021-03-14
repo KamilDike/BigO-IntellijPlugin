@@ -12,7 +12,6 @@ public class MethodComparator {
     private MethodComparator(){
         recognizedMethods = new HashSet<>();
         //array
-        recognizedMethods.add("public void add(int index, E element)");
         recognizedMethods.add("public boolean add(E e)");
         recognizedMethods.add("public boolean contains(java.lang.Object o)");
         recognizedMethods.add("public E get(int index)");

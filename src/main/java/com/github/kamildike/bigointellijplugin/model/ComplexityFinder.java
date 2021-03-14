@@ -2,14 +2,19 @@ package com.github.kamildike.bigointellijplugin.model;
 
 import com.intellij.psi.PsiElement;
 
+import java.util.ArrayList;
+
 public class ComplexityFinder {
 
     public static Notation find(PsiElement method, PsiElement parent) {
-
+        String[] parentList = parent.getText().split("\\s");
+        String newParent = parentList[2].strip();
+        String[] methodList = method.getText().split("\\s|\\(");
+        String newMethod = methodList[2].strip();
         Notation complex = null;
-        switch (parent.getText()) {
+        switch (newParent) {
             case "ArrayList":
-                switch (method.getText()){
+                switch (newMethod){
                     case "add":
                         complex = Notation.O1;
                         break;
@@ -27,7 +32,7 @@ public class ComplexityFinder {
                 }
                 break;
             case "LinkedList":
-                switch (method.getText()){
+                switch (newMethod){
                     case "add":
                         complex = Notation.O1;
                         break;
@@ -49,7 +54,7 @@ public class ComplexityFinder {
                     case "poll":
                         complex = Notation.O1;
                         break;
-                    case "size":
+                    case "size()":
                         complex = Notation.O1;
                         break;
                     default:
@@ -75,7 +80,7 @@ public class ComplexityFinder {
 //                }
 //                break;
             case "PriorityQueue":
-                switch (method.getText()){
+                switch (newMethod){
                     case "offer":
                         complex = Notation.OLOGN;
                         break;
@@ -93,7 +98,7 @@ public class ComplexityFinder {
                 }
                 break;
             case "ArrayDeque":
-                switch (method.getText()){
+                switch (newMethod){
                     case "offer":
                         complex = Notation.O1;
                         break;
@@ -111,7 +116,7 @@ public class ComplexityFinder {
                 }
                 break;
             case "HashSet":
-                switch (method.getText()){
+                switch (newMethod){
                     case "add":
                         complex = Notation.O1;
                         break;
@@ -123,7 +128,7 @@ public class ComplexityFinder {
                 }
                 break;
             case "LinkedHashSet":
-                switch (method.getText()){
+                switch (newMethod){
                     case "add":
                         complex = Notation.O1;
                         break;
@@ -135,7 +140,7 @@ public class ComplexityFinder {
                 }
                 break;
             case "TreeSet":
-                switch (method.getText()){
+                switch (newMethod){
                     case "add":
                         complex = Notation.OLOGN;
                         break;
@@ -145,6 +150,8 @@ public class ComplexityFinder {
                     default:
                         break;
                 }
+                break;
+            default:
                 break;
         }
 
