@@ -54,7 +54,7 @@ public class ComplexityFinder {
                     case "poll":
                         complex = Notation.O1;
                         break;
-                    case "size()":
+                    case "size":
                         complex = Notation.O1;
                         break;
                     default:
