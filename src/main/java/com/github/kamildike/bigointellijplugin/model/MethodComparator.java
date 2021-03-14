@@ -11,9 +11,20 @@ public class MethodComparator {
 
     private MethodComparator(){
         recognizedMethods = new HashSet<>();
+        //array
         recognizedMethods.add("public void add(int index, E element)");
         recognizedMethods.add("public boolean add(E e)");
         recognizedMethods.add("public boolean contains(java.lang.Object o)");
+        recognizedMethods.add("public E get(int index)");
+        recognizedMethods.add("public E remove(int index)");
+        //queue
+        recognizedMethods.add("public boolean offer(E e)");
+        recognizedMethods.add("public E peek()");
+        recognizedMethods.add("public E poll()");
+        recognizedMethods.add("public int size()");
+        //set
+        //add,contains
+
         /* add here recognised methods */
     }
 

@@ -25,6 +25,7 @@ class BigOn extends AnAction {
 
     @Override
     public void update(AnActionEvent e) {
+
         try {
             PsiElement method = e.getData(LangDataKeys.PSI_ELEMENT);
             PsiElement parent = Objects.requireNonNull(method).getContext();
@@ -68,10 +69,7 @@ class BigOn extends AnAction {
         PsiElement parent = e.getData(LangDataKeys.PSI_ELEMENT).getContext();
 
 
-
         notation = Notation.ON;
-
-
 
 
             JBPopupFactory.getInstance().
