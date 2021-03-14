@@ -67,9 +67,11 @@ class BigOn extends AnAction {
         PsiElement method = e.getData(LangDataKeys.PSI_ELEMENT);
         PsiElement parent = e.getData(LangDataKeys.PSI_ELEMENT).getContext();
 
+
         notation = Notation.ON;
 
         Notifier.notify(project, notation);
+
     }
 }
 
