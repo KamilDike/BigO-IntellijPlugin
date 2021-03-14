@@ -8,8 +8,16 @@
     <depends>com.intellij.modules.platform</depends>
 
 
+    <extensions defaultExtensionNs="com.intellij">
+        <notification.parentGroup
+            id="notifier.notifications"
+            title="Notifications" />
 
+        <notification.group
+            parentId="notifier.notifications"
+            groupId="notifier.notifications.toolWindow"/>
 
+    </extensions>
 
     <actions>
         <action id="PopUpBigO" text="BigO"  class="com.github.kamildike.bigointellijplugin.BigOn">
