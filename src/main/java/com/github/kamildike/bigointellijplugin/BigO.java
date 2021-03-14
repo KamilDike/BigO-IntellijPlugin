@@ -1,17 +1,16 @@
 package com.github.kamildike.bigointellijplugin;
 
 import com.github.kamildike.bigointellijplugin.model.ClassComparator;
+import com.github.kamildike.bigointellijplugin.model.Notifier;
 import com.github.kamildike.bigointellijplugin.model.MethodComparator;
 import com.github.kamildike.bigointellijplugin.model.Notation;
 import com.intellij.openapi.actionSystem.*;
-import com.intellij.openapi.command.WriteCommandAction;
 
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.actionSystem.EditorActionHandler;
 import com.intellij.openapi.editor.actionSystem.EditorActionManager;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.popup.JBPopupFactory;
 
 import com.intellij.psi.PsiElement;
 
@@ -68,15 +67,12 @@ class BigOn extends AnAction {
         PsiElement method = e.getData(LangDataKeys.PSI_ELEMENT);
         PsiElement parent = e.getData(LangDataKeys.PSI_ELEMENT).getContext();
 
+
         notation = Notation.ON;
 
-            JBPopupFactory.getInstance().
-                    createMessage(Notation.getLabel(notation)).showInBestPositionFor(editor);
-
-            Notation finalNotation = notation;
-            Runnable runnable = () -> document.insertString(editor.getCaretModel().getPrimaryCaret().getVisualLineStart()
-                    , "// has time complexity: " + Notation.getLabel(finalNotation) + "\n");
-            WriteCommandAction.runWriteCommandAction(project, runnable);
+        Notifier.notify(project, notation);
 
     }
 }
+
+
