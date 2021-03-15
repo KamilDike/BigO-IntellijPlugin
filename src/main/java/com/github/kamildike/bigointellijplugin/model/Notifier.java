@@ -15,7 +15,7 @@ public class Notifier {
     public static void notify(Project project, Notation notation) {
         Notification msg = new Notification(
                 WINDOW_GROUP.getDisplayId(), null,
-                "BigOn", Notation.getLabel(notation), "",
+                "Time complexity", Notation.getLabel(notation), "",
                 NotificationType.INFORMATION, null);
         synchronized (msg) {
             msg.notify(project);
