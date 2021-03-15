@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 
-class BigOn extends AnAction {
+class TimeComplexity extends AnAction {
 
 
     @Override

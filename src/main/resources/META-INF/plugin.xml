@@ -20,7 +20,7 @@
     </extensions>
 
     <actions>
-        <action id="PopUpBigO" text="BigO"  class="com.github.kamildike.bigointellijplugin.BigOn">
+        <action id="PopUpBigO" text="Time complexity"  class="com.github.kamildike.bigointellijplugin.TimeComplexity">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <keyboard-shortcut keymap="$default" first-keystroke="alt q"/>
         </action>
