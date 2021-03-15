@@ -2,7 +2,7 @@ package com.github.kamildike.bigointellijplugin.model;
 
 import com.intellij.psi.PsiElement;
 
-import java.util.ArrayList;
+
 
 public class ComplexityFinder {
 
@@ -16,14 +16,10 @@ public class ComplexityFinder {
             case "ArrayList":
                 switch (newMethod){
                     case "add":
-                        complex = Notation.O1;
-                        break;
-                    case "remove":
-                        complex = Notation.ON;
-                        break;
                     case "get":
                         complex = Notation.O1;
                         break;
+                    case "remove":
                     case "contains":
                         complex = Notation.ON;
                         break;
@@ -34,28 +30,16 @@ public class ComplexityFinder {
             case "LinkedList":
                 switch (newMethod){
                     case "add":
-                        complex = Notation.O1;
-                        break;
-                    case "remove":
-                        complex = Notation.ON;
-                        break;
-                    case "get":
-                        complex = Notation.ON;
-                        break;
-                    case "contains":
-                        complex = Notation.ON;
-                        break;
+                    case "size":
+                    case "poll":
+                    case "peak":
                     case "offer":
                         complex = Notation.O1;
                         break;
-                    case "peak":
-                        complex = Notation.O1;
-                        break;
-                    case "poll":
-                        complex = Notation.O1;
-                        break;
-                    case "size":
-                        complex = Notation.O1;
+                    case "remove":
+                    case "contains":
+                    case "get":
+                        complex = Notation.ON;
                         break;
                     default:
                         break;
@@ -82,14 +66,10 @@ public class ComplexityFinder {
             case "PriorityQueue":
                 switch (newMethod){
                     case "offer":
-                        complex = Notation.OLOGN;
-                        break;
-                    case "peak":
-                        complex = Notation.O1;
-                        break;
                     case "poll":
                         complex = Notation.OLOGN;
                         break;
+                    case "peak":
                     case "size":
                         complex = Notation.O1;
                         break;
@@ -100,15 +80,9 @@ public class ComplexityFinder {
             case "ArrayDeque":
                 switch (newMethod){
                     case "offer":
-                        complex = Notation.O1;
-                        break;
-                    case "peak":
-                        complex = Notation.O1;
-                        break;
-                    case "poll":
-                        complex = Notation.O1;
-                        break;
                     case "size":
+                    case "poll":
+                    case "peak":
                         complex = Notation.O1;
                         break;
                     default:
@@ -116,22 +90,9 @@ public class ComplexityFinder {
                 }
                 break;
             case "HashSet":
-                switch (newMethod){
-                    case "add":
-                        complex = Notation.O1;
-                        break;
-                    case "contains":
-                        complex = Notation.O1;
-                        break;
-                    default:
-                        break;
-                }
-                break;
             case "LinkedHashSet":
                 switch (newMethod){
                     case "add":
-                        complex = Notation.O1;
-                        break;
                     case "contains":
                         complex = Notation.O1;
                         break;
@@ -142,8 +103,6 @@ public class ComplexityFinder {
             case "TreeSet":
                 switch (newMethod){
                     case "add":
-                        complex = Notation.OLOGN;
-                        break;
                     case "contains":
                         complex = Notation.OLOGN;
                         break;
