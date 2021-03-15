@@ -8,9 +8,9 @@ public class ComplexityFinder {
 
     public static Notation find(PsiElement method, PsiElement parent) {
         String[] parentList = parent.getText().split("\\s");
-        String newParent = parentList[2].strip();
+        String newParent = parentList[2].trim();
         String[] methodList = method.getText().split("\\s|\\(");
-        String newMethod = methodList[2].strip();
+        String newMethod = methodList[2].trim();
         Notation complex = null;
         switch (newParent) {
             case "ArrayList":
