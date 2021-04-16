@@ -6,22 +6,22 @@ public class Product implements Serializable {
     private String name;
     private Category category;
     private float discount;
-    private float pricePerName;
+    private float pricePerQuantity;
     private float quantity;
     private float price;
     private String categoryName;
 
-    public Product(String name, Category category, float discount, float pricePerName, float quantity, float price, String categoryName) {
+    public Product(String name, Category category, float discount, float quantity, float price, String categoryName) {
         this.name = name;
         this.category = category;
         this.discount = discount;
-        this.pricePerName = pricePerName;
         this.quantity = quantity;
         this.price = price;
         this.categoryName = categoryName;
+        this.pricePerQuantity = pricePerQuantity();
     }
 
-    public float pricePerQuantity() {
+    private float pricePerQuantity() {
         return price / quantity;
     }
 
@@ -37,8 +37,8 @@ public class Product implements Serializable {
         return discount;
     }
 
-    public float getPricePerName() {
-        return pricePerName;
+    public float getPricePerQuantity() {
+        return pricePerQuantity;
     }
 
     public float getQuantity() {
